@@ -1,0 +1,117 @@
+---
+title: "Gráficos del sistema base de R"
+author: "Mariana Morales"
+format: html
+editor: visual
+---
+
+
+## Gráficos del sistema base de R 
+
+## Gráfico de dispersión
+
+Muestra la relación entre dos variables numéricas
+
+### Relación entre la presión y la temperatura 
+
+```{r}
+# Gráfico de dispersón del conjunto de datos "pressure" con etiquetas en los 
+#ejes x e y
+
+
+plot(
+  y=pressure$pressure,
+  x=pressure$temperature,
+  xlab="Temperatura (°C)", 
+  ylab="Presion (mm Hg)", 
+  main = "Relación entre la temperatura y la presión de vapor del mercurio", 
+  sub = "Fuente: Weast, R. C., ed. (1973) Handbook of Chemistry and Physics. CRC Press."
+)
+```
+
+## Gráfico de barras
+
+Muestra la relación entre variables categóricas
+
+### Cantidad de plantas por especie
+
+```{r}
+# Cantidad de plantas por especie presentes en el estudio
+cantidad_de_especies <- table(iris$Species)
+cantidad_de_especies
+
+
+# Gráfico de barras por Cantidad de plantas por especie presentes en el estudio
+barplot(
+  height = cantidad_de_especies,
+  main = "Cantidad de plantas por especie en el estudio \n Edgar Anderson's Iris Data",
+  xlab = "Especies",
+  ylab = "Cantidad de plantas",
+  col = c("lightblue", "lightgreen", "lightcoral"),
+  sub = "Fuente: Fisher, R. A. (1936) The use of multiple measurements in taxonomic problems."
+)
+```
+
+## Gráfico de pastel
+
+Muestra la relación entre variables categóricas
+
+### Distribución de la cantidad de plantas por especie
+
+```{r}
+# Gráfico de pastel para Cantidad de plantas por especie presentes en el estudio
+pie(
+  x = cantidad_de_especies, 
+  main = "Distribución de la cantidad de plantas por especie  \n en el estudio Edgar Anderson's Iris Data",
+  labels = paste(names(cantidad_de_especies), ":", cantidad_de_especies),
+  col = c("lightblue", "lightgreen", "lightcoral"),
+  sub = "Fuente: Fisher, R. A. (1936) The use of multiple measurements in 
+  taxonomic problems. Annals of Eugenics, 7, Part II, 179–188."
+)
+```
+
+## Histograma
+
+Muestra la relación entre variables 
+
+### Distribución de la Magnitud de los terremotos en Fiji
+
+
+```{r}
+#Lectura del conjunto de datos quakes y consulta de la documentacion
+data("quakes")
+?quakes
+
+hist(
+  x = quakes$mag, 
+  breaks = 5,
+  main = "Distribución de la Magnitud de los terremotos en Fiji", 
+  xlab = "Magnitud de los terremotos escala Richter", 
+  ylab = "Frecuencia",
+  sub = "Fuente: Dr. John Woodhouse, Dept. of Geophysics, Harvard University.",
+  col = c("lightblue", "lightgreen", "lightcoral")
+)
+```
+
+
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
