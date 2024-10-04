@@ -1,10 +1,24 @@
 ---
 title: "Gráficos del sistema base de R"
+subtitle: "Curso Programación en R"
 author: "Mariana Morales"
-format: html
+format:
+  html:
+    toc: true
+theme: darkly
+lang: es
 editor: visual
 ---
 
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+```
+
+
+<!-- format: docx...........................word  -->
+<!-- format: odt............................libre office-->
+<!-- format: pptx...........................powerpoint  -->
 
 ## Gráficos del sistema base de R 
 
@@ -15,6 +29,10 @@ Muestra la relación entre dos variables numéricas
 ### Relación entre la presión y la temperatura 
 
 ```{r}
+#| echo: false                    #Para ocultar el código fuente en el html               
+#| label: grafico dispersion      #Para agregar una etiqueta
+#| code-folde: true               #Para ocultar el código fuente en el html y que salga una pestaña para desplegar, no debe                                       tener el echo para que funcione
+
 # Gráfico de dispersón del conjunto de datos "pressure" con etiquetas en los 
 #ejes x e y
 
@@ -78,10 +96,6 @@ Muestra la relación entre variables
 
 
 ```{r}
-#Lectura del conjunto de datos quakes y consulta de la documentacion
-data("quakes")
-?quakes
-
 hist(
   x = quakes$mag, 
   breaks = 5,
@@ -115,3 +129,54 @@ You can add options to executable code like this
 ```
 
 The `echo: false` option disables the printing of code (only output is displayed).
+
+
+##Nuevos comandos sobre la librería tidyverse
+
+Se encuentran escritos como comentarios en el documento quarto y se usaron en la consola
+
+<!--  -->
+
+<!-- install.packages("tigerverse") -->
+
+<!-- library(tidyverse) -->
+
+<!-- dplyr::filter() masks stats::filter() -->
+<!-- esto de arriba sirve para escoger uno de los 2 paquetes disponibles y que no haya conflictos -->
+
+<!-- install.packages("palmerpenguins") -->
+
+<!-- library(palmerpenguins) -->
+
+<!-- View(penguins) -->
+
+
+```{r}
+# Gráfico de dispersión de longitud del pico vs masa (peso)
+penguins |>
+  ggplot(aes(x = bill_length_mm, y = body_mass_g)) +
+  geom_point(size = 2) +
+  geom_smooth(method = "loess", se = FALSE) +
+  ggtitle("Longitud del pico vs. masa") +
+  xlab("Longitud del pico (mm)") +
+  ylab("Masa (g)") +
+  labs(color = "Especie", shape = "Especie")
+```
+
+```{r}
+# Gráfico de dispersión de longitud del pico vs masa (peso) por especie
+penguins |>
+  ggplot(aes(x = bill_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  geom_smooth(method = "lm", se = FALSE, aes(color = species)) +
+  scale_color_manual(values = c("darkorange", "darkorchid", "cyan4")) +
+  ggtitle("Longitud del pico vs. masa por especie") +
+  xlab("Longitud del pico (mm)") +
+  ylab("Masa (g)") +
+  labs(color = "Especie", shape = "Especie")
+```
+
+
+
